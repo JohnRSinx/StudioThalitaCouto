@@ -19,22 +19,24 @@
   alt="Thalita Couto" 
   title="Thalita Couto" 
   src="./.github/home-cards-TC.png" 
-  width="600px"/>
+  width="650px"/>
 </p>
-- Um crud simples para que ela possa editar caso erre alguma informação
+
 <p align="center" >
+- Um crud simples para que ela possa editar caso erre alguma informação
   <img 
   alt="Thalita Couto" 
   title="#Thalita Couto" 
   src="./.github/edition-TC.png"  
-  width="600px"/>
+  width="650px"/>
 </p>
 <p align="center" >
+- Fazendo a Edição
   <img 
   alt="Thalita Couto"
  title="Thalita Couto" 
  src="./.github/editado-tc.png" 
- width="600px"/>
+ width="650px"/>
 </p>
 
 ## 💻 Projeto
