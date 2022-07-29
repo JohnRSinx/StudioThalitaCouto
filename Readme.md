@@ -31,7 +31,6 @@
   width="650px"/>
 </p>
 <p align="center" >
-- Fazendo a Edição
   <img 
   alt="Thalita Couto"
  title="Thalita Couto" 
