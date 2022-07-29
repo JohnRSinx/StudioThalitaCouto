@@ -3,7 +3,7 @@
 </h3> 
 
 <h1 align="center">
-    <img alt="home do Thalita Couto" title="#Studio Thalita Couto" src="./.github/home-thalitaCouto.png" />
+    <img alt="home do Thalita Couto" title="#Studio Thalita Couto" src="./.github/home-thaliaCouto.png" />
 </h1>
 
 
@@ -12,28 +12,29 @@
 
 ---
 
+
+<p align="center" >
 - Fiz a aplicação com intuito de ajudar minha esposa no cadastro dos clientes dela.❤️
-<p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
   <img 
   alt="Thalita Couto" 
   title="Thalita Couto" 
   src="./.github/home-cards-TC.png" 
-  width="400px"/>
+  width="600px"/>
 </p>
 - Um crud simples para que ela possa editar caso erre alguma informação
-<p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
+<p align="center" >
   <img 
   alt="Thalita Couto" 
   title="#Thalita Couto" 
   src="./.github/edition-TC.png"  
-  width="400px"/>
+  width="600px"/>
 </p>
-<p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
+<p align="center" >
   <img 
   alt="Thalita Couto"
  title="Thalita Couto" 
  src="./.github/editado-tc.png" 
- width="400px"/>
+ width="600px"/>
 </p>
 
 ## 💻 Projeto
