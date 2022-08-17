@@ -15,32 +15,24 @@ app.use(cors());
 app.use(express.json());
 
 
-app.get ('/', (req, res) => {
-  let sql = "INSERT INTO dadosclient (name,time,category,value) VALUES ('kauanny', '14:32', 'Design', 'R$20');" 
-  db.query(sql, (err, result) => {
-    console.log(err);
-  })
-})
 
 app.post("/register", (req, res) => {
-  const {name} = req.body;
-  const {time} = req.body;
-  const {category} = req.body;
-  const {value} = req.body;
+  const {name,time,category,value} = req.body;
 
   let sql = "INSERT INTO dadosclient (name,time,category,value) VALUES (?,?,?,?)";
   db.query(sql, [name,time,category,value],(err,  result) => {
     console.log(err);
   })
+  res.status(201).send('user cadastrado');
 
 })
 
-app.get("/getCards",(req , res)=>{
+app.get("/getCards",( _ , res)=>{
   let SQL = "SELECT * FROM dadosclient";
 
   db.query(SQL,(err,result)=>{
     if(err) console.log(err)
-    else res.send(result)
+    else res.status(200).send(result);
   })
 })
 
@@ -62,8 +54,9 @@ app.delete("/delete/:id", (req , res)=>{
   const {id}= req.params;
   let sql = "DELETE FROM dadosclient WHERE iddadosclient=?";
   db.query(sql,[id],(err, result)=>{
+    console.log(result);
     if(err) console.log(err)
-    else res.send(result)
+    else res.status(204).send('User deleted')
   });
 })
 

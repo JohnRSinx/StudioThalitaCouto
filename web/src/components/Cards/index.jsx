@@ -1,25 +1,26 @@
 import { Container } from "./styles";
-import { Trash , Pen} from "phosphor-react";
+import { Pen } from "phosphor-react";
 import { FormDialog } from "../Dialog/Dialog";
 import {useState} from "react";
 
 
-export function Cards({content}) {
+export function Cards({content,setListClient}) {
   const [open, setOpen] = useState(false);
+
   function handleClickCard () {
     setOpen(true);
   }
+  console.log(content)
   return (
     <>
     <FormDialog 
-    open={open} 
-    setOpen={setOpen}
+    open={open}
+    onClose={()=>setOpen(false)}
     content={content}
     listCard={content.listCard}
-    setListCard={content.setListCard}
-    
-    
+    setListClient={setListClient}
     />
+    
     <Container>
     <article onClick={()=>handleClickCard()}>
        <div className="contentHeader">

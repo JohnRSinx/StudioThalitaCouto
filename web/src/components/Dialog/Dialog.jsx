@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState , useEffect} from 'react'
+import {useState } from 'react'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,18 +9,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 import "./styles.css";
 
-export function FormDialog({content ,open , setOpen , listCard }) {
+export function FormDialog({content ,setListClient , open , onClose}) {
   const [editeValues, setEditeValues] = useState({
     id:content.iddadosclient,
     name:content.name,
     category:content.category,
     value:content.value,
   })
-
-  useEffect(()=>{
-   
-  },[listCard])
-
+  
 
   function handleSalveEdit () {
     axios.put("http://localhost:3001/edit" , {
@@ -29,19 +25,21 @@ export function FormDialog({content ,open , setOpen , listCard }) {
       category:editeValues.category,
       value:editeValues.value,
     })
-    handleClose();
+    onClose();
  }
   
- function handleDeleteCard (){
-  axios.delete(`http://localhost:3001/delete/${editeValues.id}`);
-  handleClose()
-  
+async function handleDeleteCard (){
+  try {
+   await axios.delete(`http://localhost:3001/delete/${editeValues.id}`);
+   await axios.get("http://localhost:3001/getCards").then((response)=> {
+      setListClient(response.data);
+      })
+  } catch(err){
+    console.log(err);
+  }
+    onClose()
  }
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-  
+ 
   const handleChangeValues = value => {
     setEditeValues(prevValues=>({
       ...prevValues,
@@ -52,15 +50,15 @@ export function FormDialog({content ,open , setOpen , listCard }) {
 
   return (
             <Dialog 
-            open={open} 
-            onClose={handleClose} 
-            aria-labelledby="form-dialog-title"
-            classes={{paper:"dialog-root"}}
+              open={open} 
+              onClose={onClose} 
+              aria-labelledby="form-dialog-title"
+              classes={{paper:"dialog-root"}}
             >
             
             <DialogTitle 
-            id="form-dialog-title"
-            classes={{root:"title"}}
+              id="form-dialog-title"
+              classes={{root:"title"}}
             >
             Editar
             </DialogTitle>
@@ -78,7 +76,6 @@ export function FormDialog({content ,open , setOpen , listCard }) {
             />
             <TextField
               classes={{root:"input"}}
-              autoFocus
               margin="dense"
               id="category"
               label="Procedimento..."
@@ -89,7 +86,6 @@ export function FormDialog({content ,open , setOpen , listCard }) {
             />
             <TextField
               classes={{root:"input"}}
-              autoFocus
               margin="dense"
               id="value"
               label="Valor..."
@@ -103,7 +99,7 @@ export function FormDialog({content ,open , setOpen , listCard }) {
           classes={{root:"actions"}}
           >
             <Button 
-            onClick={handleClose}
+            onClick={onClose}
             classes={{root:"button"}}
             >
               Fechar

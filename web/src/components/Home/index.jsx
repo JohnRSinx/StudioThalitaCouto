@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Cards } from "../Cards";
 import { Wrapper } from "./styles";
 import perfilFoto from '../../assets/perfilthalita.jpg';
@@ -23,7 +23,7 @@ export function Home() {
     Axios.get("http://localhost:3001/getCards").then((response)=> {
       setListClient(response.data);
     })
-  },[listClient])
+  },[])
 
  //Armazena o que vem do input
   function handleStorageCard ({target}) { 
@@ -32,17 +32,43 @@ export function Home() {
   }
 
   //Faz a aquisição para o back informando os dados do Estado
-  function handleClickSalve() {
+  //  function handleClickSalve() {
+  //   event.preventDefault();
+  //   Axios.post("http://localhost:3001/register", {
+  //     name: storageInput.name,
+  //     time: storageInput.time,
+  //     category: storageInput.category,
+  //     value: storageInput.value,
+  //   }).then((response)=> {
+  //     console.log(response)
+  //       Axios.get("http://localhost:3001/getCards").then((response)=> {
+  //      setListClient(response.data);
+  //   })
+  //   });
+  //   setStorageInput({
+  //     name : "",
+  //     time:"",
+  //     category : "",
+  //     value : "",
+  //   })
+  // }
+
+  const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
-    Axios.post("http://localhost:3001/register", {
+    try {
+      await Axios.post("http://localhost:3001/register", {
       name: storageInput.name,
       time: storageInput.time,
       category: storageInput.category,
       value: storageInput.value,
-    }).then((response)=> {
-      console.log(response)
     });
-  }
+      await Axios.get("http://localhost:3001/getCards").then((response)=> {
+        setListClient(response.data);
+      })
+    } catch(e){
+      console.log(e);
+    }
+  },[storageInput])
  
   return (
     <Wrapper>
@@ -58,19 +84,22 @@ export function Home() {
             <form className="formRegister">
               <h1>Dados da Cliente</h1>
               <input
+                value={storageInput.name}
                 onChange={handleStorageCard}
                 type="text"
                 name="name"
                 placeholder="Nome do Cliente"
                 className="inputName"
               />
-              <input 
+              <input
+                value={storageInput.time} 
                 onChange={handleStorageCard}
                 type="date"
                 name="time"
                 className="inputName"
               />
               <input 
+                value={storageInput.category}
                 onChange={handleStorageCard}
                 type="text"
                 name="category"
@@ -79,12 +108,13 @@ export function Home() {
               />
               <input 
                 onChange={handleStorageCard}
+                value={storageInput.value}
                 type="number"
                 name="value"
                 placeholder="Valor"
                 className="inputName"
               />
-              <button onClick={() => handleClickSalve()}>
+              <button onClick={handleSubmit}>
                 Adicionar
               </button>
             </form>
@@ -97,7 +127,9 @@ export function Home() {
             listClient.map((value)=>{
               return (<Cards 
                 key={value.iddadosclient}
-                content={value}/>)
+                content={value}
+                setListClient={setListClient}
+                />)
             })
           }
         </div>  
